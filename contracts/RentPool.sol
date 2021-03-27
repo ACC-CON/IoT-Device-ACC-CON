@@ -19,11 +19,12 @@ contract RentPool {
     }
 
     // PayETH 本合约付以太币
-    // 参数表：接收以太币的账户地址、接收的以太币金额（小于实际发送的以太币金额，存在gas开销）
-    function PayETH(address payable to, uint256 value) external {
-        require(value <= deposit[to], "Insufficient deposit!");
-        deposit[to] -= value;
-        return to.transfer(value);
+    // 函数调用者要求退还deposit中对应部分或全部以太币
+    // 参数表：接收的以太币金额（小于合约实际支付的以太币金额，存在gas开销）
+    function PayETH(uint256 value) external {
+        require(value <= deposit[msg.sender], "Insufficient deposit!");
+        deposit[msg.sender] -= value;
+        return msg.sender.transfer(value);
     }
 
     // BalanceOfRentPool 本合约实际余额
