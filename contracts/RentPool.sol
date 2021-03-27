@@ -4,7 +4,7 @@ contract RentPool {
     // deposit 用户地址 => 存款
     // 用户可以任意存款和提现，租赁收付款优先在deposit结算
     // 考虑gas开销，我们应该减少流水，尽可能在本合约内部划转
-    mapping(address => uint256) private deposit;
+    mapping(address => uint256) public deposit;
 
     // rent 承租人地址 => (出租人地址 => 单笔租赁租金)
     // 出租人会在指定时间内从租金池提取这笔租金，否则对应数字资产将解冻和退还
