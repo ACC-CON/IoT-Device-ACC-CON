@@ -4,7 +4,7 @@ contract RentPool {
     // deposit 用户地址 => 存款
     // 用户可以任意存款和提现，租赁收付款优先在deposit结算
     // 考虑gas开销，我们应该减少流水，尽可能在本合约内部划转
-    mapping(address => uint256) private deposit;
+    mapping(address => uint256) public deposit;
 
     // rent 承租人地址 => (出租人地址 => 单笔租赁租金)
     // 出租人会在指定时间内从租金池提取这笔租金，否则对应数字资产将解冻和退还
@@ -19,11 +19,13 @@ contract RentPool {
     }
 
     // PayETH 本合约付以太币
-    // 参数表：接收以太币的账户地址、接收的以太币金额（小于实际发送的以太币金额，存在gas开销）
-    function PayETH(address payable to, uint256 value) external {
-        require(value <= deposit[to], "Insufficient deposit!");
-        deposit[to] -= value;
-        return to.transfer(value);
+    // 函数调用者要求退还deposit中对应部分或全部以太币
+    // 返回值：发送以太币的账户地址、发送的以太币金额
+    function PayETH() external payable returns (address, uint256) {
+        require(msg.value <= deposit[msg.sender], "Insufficient deposit!");
+        deposit[msg.sender] -= msg.value;
+        msg.sender.transfer(msg.value);
+        return (msg.sender, msg.value);
     }
 
     // BalanceOfRentPool 本合约实际余额
