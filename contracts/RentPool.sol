@@ -1,13 +1,36 @@
-pragma solidity ^0.4.26;
+pragma solidity ^0.5.17;
 
 contract RentPool {
-    // rentPoolAddr 租金池地址
-    // 在承租人跟出租人关于设备租赁达成共识后，承租人把对应数字资产发送到租金池，等待出租人提取
-    address public rentPoolAddr;
+    // deposit 用户存款
+    // 用户可以任意存款和提现，租赁收付款优先在deposit结算
+    // 考虑gas开销，我们应该减少流水，尽可能在本合约内部划转
+    mapping(address => uint256) public deposit;
+
     // rent 设备承租人地址 => (设备出租人地址 => 单笔租赁租金)
     // 设备出租人会在指定时间内从租金池提取这笔租金，否则对应数字资产将解冻和退还
     // 这样设计允许同一承租人或出租人同时关联多笔订单，同一组承租人和出租人之间仅允许一笔待处理订单
     mapping(address => mapping(address => uint256)) public rent;
+
+    // ReceiveETH 本合约收以太币
+    // 返回值：发送以太币的账户地址、发送的以太币金额
+    function ReceiveETH() external payable returns (address, uint256) {
+        deposit[msg.sender] += msg.value;
+        return (msg.sender, msg.value);
+    }
+
+    // PayETH 本合约付以太币
+    // 参数表：接收以太币的账户地址、接收的以太币金额（小于实际发送的以太币金额，存在gas开销）
+    function PayETH(address payable to, uint256 value) external {
+        require(value <= deposit[to], "Insufficient deposit!");
+        deposit[to] -= value;
+        return to.transfer(value);
+    }
+
+    // Balance 本合约实际余额
+    // TODO 为了避免支付提现gas导致的亏损，我们应该设计盈利方案
+    function Balance() external view returns (uint256) {
+        return address(this).balance;
+    }
 
     // Register 承租人注册租赁订单，加入租金池
     // 承租人调用这个函数，提供出租人地址和租金
