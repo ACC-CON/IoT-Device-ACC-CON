@@ -11,9 +11,15 @@ var contract = new web3.eth.Contract(jsonInterface, contract_address, {
     gas: '6721975',          // The maximum gas provided for a transaction (gas limit).
 });
 
+
 var account1_address = '0x2bb6ab549fFaa4da73C529e3E2bE29d319385e38'
 var account2_address = '0x3B473ffE5200Eb16b98BBfEB1a311f8436214E69'
+var account3_address = '0xFEE1F05064dE0B7C652aFE41A41C4855227bE52B'
 
+contract.defaultAccount = account1_address
+console.log(contract.defaultAccount)
+
+// call 不会发送交易
 // contract.methods.ReceiveETH().call({
 //     from: account1_address,        // The address the transaction should be sent from.
 //     gasPrice: '200',               // The gas price in wei to use for this transaction.
@@ -23,35 +29,33 @@ var account2_address = '0x3B473ffE5200Eb16b98BBfEB1a311f8436214E69'
 //     console.log(err, value)
 // });
 
-// // using the promise
-// contract.methods.ReceiveETH().send({
-//     from: account2_address,        // The address the transaction should be sent from.
-//     gasPrice: '200',               // The gas price in wei to use for this transaction.
-//     gas: '100000',                 // The maximum gas provided for this transaction (gas limit).
-//     value: web3.utils.toWei("5", "ether")    
-// })
-// .then(function(receipt){
-//     console.log(receipt)
-// });
-
-var account2_address = '0x3B473ffE5200Eb16b98BBfEB1a311f8436214E69'
-
-contract.methods.PayETH(web3.utils.toWei("1", "ether")).send({
-    from: account2_address,          // The address the transaction should be sent from.
-    gasPrice: '200',                 // The gas price in wei to use for this transaction.
-    gas: '100000',                   // The maximum gas provided for this transaction (gas limit).
-    value: web3.utils.toWei("1", "ether")     // The value transferred for the transaction in wei.
-}).then(function(receipt){
+// using the promise，发送交易
+contract.methods.ReceiveETH().send({
+    from: account3_address,        // The address the transaction should be sent from.
+    gasPrice: '200',               // The gas price in wei to use for this transaction.
+    gas: '100000',                 // The maximum gas provided for this transaction (gas limit).
+    value: web3.utils.toWei("5", "ether")    
+})
+.then(function(receipt){
     console.log(receipt)
 });
 
 
+// contract.methods.PayETH(web3.utils.toWei("1", "ether")).send({
+//     from: account2_address,          // The address the transaction should be sent from.
+//     gasPrice: '200',                 // The gas price in wei to use for this transaction.
+//     gas: '100000',                   // The maximum gas provided for this transaction (gas limit).
+//     value: web3.utils.toWei("1", "ether")     // The value transferred for the transaction in wei.
+// }).then(function(receipt){
+//     console.log(receipt)
+// });
 
 
-
-
-
-
-
-
-
+// contract.methods.PayETH(web3.utils.toWei("2", "ether")).call({
+//     from: account1_address,        // The address the transaction should be sent from.
+//     gasPrice: '200',               // The gas price in wei to use for this transaction.
+//     gas: '100000',                 // The maximum gas provided for this transaction (gas limit).
+//     value: web3.utils.toWei("2", "ether")     // The value transferred for the transaction in wei.
+// }, function (err, value) {
+//     console.log(err, value)
+// });
