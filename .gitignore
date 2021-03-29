@@ -1,3 +1,6 @@
 .vscode
 build
 node_modules
+
+# The account and contract addresses in different testing environments are different
+client/address.yaml

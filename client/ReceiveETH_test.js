@@ -22,12 +22,3 @@ rentPoolContract.methods.ReceiveETH().send({
 }).then(function (receipt) {
     console.log(receipt)
 });
-
-contract.methods.PayETH(web3.utils.toWei("1", "ether")).send({
-    from: accountAddresses[0],
-    gasPrice: '1000',
-    gas: 1000000,
-    value: web3.utils.toWei("1", "ether")
-}).then(function (receipt) {
-    console.log(receipt)
-});
