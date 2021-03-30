@@ -11,12 +11,23 @@ A DeFi-based IoT device rental platform, with hierarchical authentication and ac
 在本仓库目录下执行下列命令变异和部署：
 
 ```bash
-$ truffle compile # 编译合约
+$ rm -rf build # 删除过时的编译产物
 $ truffle migrate # 把合约部署到以太坊测试网
-$ truffle console # 通过控制台实现交互
 ```
 
 ## 1. 租金池
+
+### 1.0. 租金池合约调试
+
+我们的目标是正常地执行对租金池合约`ReceiveETH`和`PayETH`函数的外部调用。
+
+我容器化了测试文件`ReceiveETH_test.js`和`PayETH_test.js`。例如我们将测试`ReceiveETH`函数：
+
+```bash
+$ cd client
+$ docker build -f Dockerfile.ReceiveETH.test -t idrp-receive-eth:testing .
+$ docker run -p 7545:7545 idrp-receive-eth:testing
+```
 
 ### 1.1. 租金池合约的目标
 
@@ -31,3 +42,5 @@ $ truffle console # 通过控制台实现交互
 `IDRP`租金池线性地记录用户的可取存款，即未被租赁合同锁定的存款，这些存款可以活期取出；同一 (承租人, 出租人) 仅允许一笔待处理租赁订单，后续订单会被自动取消。
 
 `deposit`记录了全体用户的可取存款，数据类型`mapping(address => uint256)`；`rent`记录了任意 (承租人, 出租人) 的订单情况，数据类型`mapping(address => mapping(address => uint256))`，`0`代表无待处理订单，否则代表承租人预支付的租金（可能不满足出租人的要求导致租赁失败，订单取消）。
+
+##
