@@ -6,17 +6,54 @@ A DeFi-based IoT device rental platform, with hierarchical authentication and ac
 
 ## 0. 实验环境、编译和部署
 
+### 0.1. 服务端环境配置
+
 `IDRP`使用的`solidity`的版本是`v0.5.17+commit.d19bba13`；使用`truffle`变异和部署；使用`Ganache`提供以太坊测试网。
 
-在本仓库目录下执行下列命令变异和部署：
+启动`Ganache`，请遵循下面的步骤配置：
+
+1. 新建`WORKSPACE`，把`truffle-config.js`添加到`TRUFFLE PROJECTS`；
+2. 在`SERVER`，你可以自行配置，**如果你想在容器运行客户端，那么请把`HOSTNAME`配置成`0.0.0.0`**；
+3. 在`HARDFORK`，请把`HARDFORK`设置成`Petersburg`，关于`GAS`，本项目使用缺省配置。
+
+在本仓库目录下执行下列命令，把合约部署到以太坊测试网：
 
 ```bash
-$ truffle compile # 编译合约
+$ rm -rf build # 删除过时的编译产物
 $ truffle migrate # 把合约部署到以太坊测试网
-$ truffle console # 通过控制台实现交互
 ```
 
+### 0.2. 客户端环境配置
+
+在`client`目录下，我们提供了环境配置文件模版`environment.yaml.template`，请从它出发完成客户端环境配置：
+
+```bash
+$ mv environment.yaml.template environment.yaml
+```
+
+请遵循注释修改`environment.yaml`。
+
 ## 1. 租金池
+
+### 1.0. 租金池合约调试
+
+我们的目标是正常地执行对租金池合约`ReceiveETH`和`PayETH`函数的外部调用。
+
+我容器化了测试文件`ReceiveETH_test.js`和`PayETH_test.js`，你可以借助Docker运行它们。
+
+我们可以这样测试`ReceiveETH`函数：
+
+```bash
+$ docker build -f Dockerfile.ReceiveETH.test -t idrp-receive-eth:testing .
+$ docker run -p 0.0.0.0:7545:7545 idrp-receive-eth:testing
+```
+
+我们可以这样测试`PayETH`函数：
+
+```bash
+$ docker build -f Dockerfile.PayETH.test -t idrp-pay-eth:testing .
+$ docker run -p 0.0.0.0:7545:7545 idrp-pay-eth:testing
+```
 
 ### 1.1. 租金池合约的目标
 
@@ -24,7 +61,7 @@ $ truffle console # 通过控制台实现交互
 
 1. 用户操作简单，按需存款，活期取款；
 2. 减少非必要开销，压缩合约对外流水，节省gas开销；
-3. **TODO** 用户有利可图，合约通过提供基础金融服务盈利。
+3. *(TBD)* 用户有利可图，合约通过提供基础金融服务盈利。
 
 ### 1.2. 租金池数据结构
 
