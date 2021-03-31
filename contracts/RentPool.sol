@@ -11,6 +11,8 @@ contract RentPool {
     // 这样设计允许同一承租人或出租人同时关联多笔订单，同一组承租人和出租人之间仅允许一笔待处理订单
     mapping(address => mapping(address => uint256)) public rent;
 
+    constructor() public payable {}
+
     // ReceiveETH 本合约收以太币
     // 返回值：发送以太币的账户地址、发送的以太币金额
     function ReceiveETH() external payable returns (address, uint256) {
@@ -20,12 +22,13 @@ contract RentPool {
 
     // PayETH 本合约付以太币
     // 函数调用者要求退还deposit中对应部分或全部以太币
+    // 参数表：合约被要求退还的以太币金额
     // 返回值：发送以太币的账户地址、发送的以太币金额
-    function PayETH() external payable returns (address, uint256) {
-        require(msg.value <= deposit[msg.sender], "Insufficient deposit!");
-        deposit[msg.sender] -= msg.value;
-        msg.sender.transfer(msg.value);
-        return (msg.sender, msg.value);
+    function PayETH(uint256 value) external returns (address, uint256) {
+        require(value <= deposit[msg.sender], "Insufficient deposit!");
+        deposit[msg.sender] -= value;
+        msg.sender.transfer(value);
+        return (msg.sender, value);
     }
 
     // BalanceOfRentPool 本合约实际余额
