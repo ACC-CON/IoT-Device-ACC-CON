@@ -11,6 +11,8 @@ contract RentPool {
     // 这样设计允许同一承租人或出租人同时关联多笔订单，同一组承租人和出租人之间仅允许一笔待处理订单
     mapping(address => mapping(address => uint256)) public rent;
 
+    // 构造本合约
+    // 参考：https://docs.soliditylang.org/en/develop/common-patterns.html#withdrawal-from-contracts
     constructor() public payable {}
 
     // ReceiveETH 本合约收以太币
