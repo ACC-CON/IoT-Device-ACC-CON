@@ -1,0 +1,13 @@
+# 协议类型，在容器运行客户端建议配置成“http”
+protocol: "http"
+# 以太坊测试网IP地址，在macOS/Docker运行客户端请配置成“docker.for.mac.host.internal”
+host_ip_address: "127.0.0.1"
+# 以太坊测试网端口号
+port_number: "7545"
+
+# 租金池合约地址
+contract_address: "0x"
+# 账户地址列表
+account_addresses:
+  - "0x"
+  - "0x"
