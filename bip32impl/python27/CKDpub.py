@@ -47,7 +47,17 @@ def HMAC_SHA512(key, data):
     Calculate the HMAC-SHA512 of input data using the chain code as key.
     Returns a tuple of the left and right halves of the HMAC
     """
+    # print ""
+    # print "HMAC_SHA512:"
+    # print "- input"
+    # print "  - key: ", key.encode('hex')
+    # print "  - data:", data.encode('hex')
     I = hmac.new(key, data, hashlib.sha512).digest()
+    # print "- output"
+    # print "  - I: ", I.encode('hex')
+    # print "  - IL:", I[:32].encode('hex')
+    # print "  - IR:", I[32:].encode('hex')
+    # print ""
     return (I[:32], I[32:])
 
 
@@ -169,7 +179,8 @@ if __name__ == "__main__":
     
     parent_pubkey_str = int_to_string(0X03b6155fc9bcfe6df3af81aec97b12e1de938a842898e9eecec00c573a9c3c5399)
     parent_public_key_point = pointFromCompressedPub(parent_pubkey_str)
-
+    # print int_to_string(parent_public_key_point.x()).encode('hex'), int_to_string(parent_public_key_point.y()).encode('hex')
+    
     parent_public_key = ecdsa.VerifyingKey.from_public_point(parent_public_key_point, curve=SECP256k1).pubkey.point
     parent_chain_code = int_to_string(0Xe6352421628682b1d4dcab3d37b93a6c5edb530451b3c94e3ec1adac1f1d6a7a)
 
@@ -185,7 +196,9 @@ if __name__ == "__main__":
     print "    - (hex)   ", PublicKey(child_pubkey).encode('hex')
     print "  - Chain code"
     print "    - (hex)   ", chil_chain_code.encode('hex')
-
+    
+    # print int_to_string(child_pubkey.x()).encode('hex'), int_to_string(child_pubkey.y()).encode('hex')
+    
     """
     - Parent
         - Public key
