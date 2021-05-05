@@ -115,13 +115,13 @@ var uint256_pubkey_x = "0xb6155fc9bcfe6df3af81aec97b12e1de938a842898e9eecec00c57
 var uint256_pubkey_y = "0x1a384fbc760f019e0fdf80f55113a9cef5039077a8dd31968b7ce6258a61051d";
 var uint256_chain_code = "0xe6352421628682b1d4dcab3d37b93a6c5edb530451b3c94e3ec1adac1f1d6a7a";
 var index = "0x00000000"
-CKDPubContract.methods.driveChildPub(uint256_pubkey_x, uint256_pubkey_y, uint256_chain_code, index).call({
+CKDPubContract.methods.driveChildPub(uint256_pubkey_x, uint256_pubkey_y, uint256_chain_code, index).estimateGas({
     from: accountAddresses[1]
 }, function (error, result) {
     console.log(error, result)
-    console.log("Ki_x", dec2hex(result['Ki_x']))
-    console.log("Ki_y", dec2hex(result['Ki_y']))
-    console.log("ci  ", dec2hex(result['ci']))
+    // console.log("Ki_x", dec2hex(result['Ki_x']))
+    // console.log("Ki_y", dec2hex(result['Ki_y']))
+    // console.log("ci  ", dec2hex(result['ci']))
     // should be: 
     // - Ki_x: 28b5222c6f87e07afaf9ab8d8b9edd64652289f7f71716adcf093f66fbfbe4f9
     // - Ki_y: fedd2a2cb7454870b1df21c047d5df61f1afb5313e7f0b277a820b9e5557d481
