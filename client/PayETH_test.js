@@ -14,7 +14,7 @@ var rentPoolContract = new web3.eth.Contract(rentPoolContractAbi, contractAddres
     gas: 6721975,
 });
 
-rentPoolContract.methods.PayETH(web3.utils.toWei("1", "ether")).send({
+rentPoolContract.methods.PayETH(web3.utils.toWei("0", "ether")).estimateGas({
     from: accountAddresses[0],
     gasPrice: '1000',
     gas: 1000000,
