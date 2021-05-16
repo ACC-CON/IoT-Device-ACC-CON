@@ -11,3 +11,6 @@ contract_address: "0x"
 account_addresses:
   - "0x"
   - "0x"
+# 账户地址对应的私钥列表
+account_prikeys:
+  - ""

@@ -4,3 +4,4 @@ node_modules
 
 # The account and contract addresses in different testing environments are different
 client/environment.yaml
+client/env_*.yaml
