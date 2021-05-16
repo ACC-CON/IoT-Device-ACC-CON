@@ -357,4 +357,8 @@ contract Operations {
             }
         }
     }
+
+    function getAccTabLength(uint32 IoTid) public returns (uint256){
+        return accTab[IoTid].length;
+    }
 }
