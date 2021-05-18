@@ -1,0 +1,1087 @@
+    /* "TestOperations.sol":26:476  contract TestOperations {... */
+  mstore(0x40, 0x80)
+  callvalue
+    /* "--CODEGEN--":8:17   */
+  dup1
+    /* "--CODEGEN--":5:7   */
+  iszero
+  tag_1
+  jumpi
+    /* "--CODEGEN--":30:31   */
+  0x00
+    /* "--CODEGEN--":27:28   */
+  dup1
+    /* "--CODEGEN--":20:32   */
+  revert
+    /* "--CODEGEN--":5:7   */
+tag_1:
+    /* "TestOperations.sol":26:476  contract TestOperations {... */
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "TestOperations.sol":26:476  contract TestOperations {... */
+      mstore(0x40, 0x80)
+      callvalue
+        /* "--CODEGEN--":8:17   */
+      dup1
+        /* "--CODEGEN--":5:7   */
+      iszero
+      tag_1
+      jumpi
+        /* "--CODEGEN--":30:31   */
+      0x00
+        /* "--CODEGEN--":27:28   */
+      dup1
+        /* "--CODEGEN--":20:32   */
+      revert
+        /* "--CODEGEN--":5:7   */
+    tag_1:
+        /* "TestOperations.sol":26:476  contract TestOperations {... */
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0e6173c8
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x72162658
+      eq
+      tag_4
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "TestOperations.sol":209:474  function addFakeItemsInAccTab(uint32 IoTid, uint256 num) public {... */
+    tag_3:
+      tag_5
+      0x04
+      dup1
+      calldatasize
+      sub
+        /* "--CODEGEN--":13:15   */
+      0x40
+        /* "--CODEGEN--":8:11   */
+      dup2
+        /* "--CODEGEN--":5:16   */
+      lt
+        /* "--CODEGEN--":2:4   */
+      iszero
+      tag_6
+      jumpi
+        /* "--CODEGEN--":29:30   */
+      0x00
+        /* "--CODEGEN--":26:27   */
+      dup1
+        /* "--CODEGEN--":19:31   */
+      revert
+        /* "--CODEGEN--":2:4   */
+    tag_6:
+        /* "TestOperations.sol":209:474  function addFakeItemsInAccTab(uint32 IoTid, uint256 num) public {... */
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      0xffffffff
+      and
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_7
+      jump	// in
+    tag_5:
+      stop
+        /* "TestOperations.sol":163:202  mapping(uint32 => Auth[]) public accTab */
+    tag_4:
+      tag_8
+      0x04
+      dup1
+      calldatasize
+      sub
+        /* "--CODEGEN--":13:15   */
+      0x40
+        /* "--CODEGEN--":8:11   */
+      dup2
+        /* "--CODEGEN--":5:16   */
+      lt
+        /* "--CODEGEN--":2:4   */
+      iszero
+      tag_9
+      jumpi
+        /* "--CODEGEN--":29:30   */
+      0x00
+        /* "--CODEGEN--":26:27   */
+      dup1
+        /* "--CODEGEN--":19:31   */
+      revert
+        /* "--CODEGEN--":2:4   */
+    tag_9:
+        /* "TestOperations.sol":163:202  mapping(uint32 => Auth[]) public accTab */
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      0xffffffff
+      and
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_10
+      jump	// in
+    tag_8:
+      mload(0x40)
+      dup1
+      dup1
+      0x20
+      add
+      dup1
+      0x20
+      add
+      dup6
+      dup2
+      mstore
+      0x20
+      add
+      dup5
+      iszero
+      iszero
+      iszero
+      iszero
+      dup2
+      mstore
+      0x20
+      add
+      dup4
+      dup2
+      sub
+      dup4
+      mstore
+      dup8
+      dup2
+      dup2
+      mload
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      dup1
+      dup4
+      dup4
+        /* "--CODEGEN--":23:24   */
+      0x00
+        /* "--CODEGEN--":8:108   */
+    tag_11:
+        /* "--CODEGEN--":33:36   */
+      dup4
+        /* "--CODEGEN--":30:31   */
+      dup2
+        /* "--CODEGEN--":27:37   */
+      lt
+        /* "--CODEGEN--":8:108   */
+      iszero
+      tag_13
+      jumpi
+        /* "--CODEGEN--":99:100   */
+      dup1
+        /* "--CODEGEN--":94:97   */
+      dup3
+        /* "--CODEGEN--":90:101   */
+      add
+        /* "--CODEGEN--":84:102   */
+      mload
+        /* "--CODEGEN--":80:81   */
+      dup2
+        /* "--CODEGEN--":75:78   */
+      dup5
+        /* "--CODEGEN--":71:82   */
+      add
+        /* "--CODEGEN--":64:103   */
+      mstore
+        /* "--CODEGEN--":52:54   */
+      0x20
+        /* "--CODEGEN--":49:50   */
+      dup2
+        /* "--CODEGEN--":45:55   */
+      add
+        /* "--CODEGEN--":40:55   */
+      swap1
+      pop
+        /* "--CODEGEN--":8:108   */
+      jump(tag_11)
+    tag_13:
+        /* "--CODEGEN--":12:26   */
+      pop
+        /* "TestOperations.sol":163:202  mapping(uint32 => Auth[]) public accTab */
+      pop
+      pop
+      pop
+      swap1
+      pop
+      swap1
+      dup2
+      add
+      swap1
+      0x1f
+      and
+      dup1
+      iszero
+      tag_14
+      jumpi
+      dup1
+      dup3
+      sub
+      dup1
+      mload
+      0x01
+      dup4
+      0x20
+      sub
+      0x0100
+      exp
+      sub
+      not
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+    tag_14:
+      pop
+      dup4
+      dup2
+      sub
+      dup3
+      mstore
+      dup7
+      dup2
+      dup2
+      mload
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      dup1
+      dup4
+      dup4
+        /* "--CODEGEN--":23:24   */
+      0x00
+        /* "--CODEGEN--":8:108   */
+    tag_15:
+        /* "--CODEGEN--":33:36   */
+      dup4
+        /* "--CODEGEN--":30:31   */
+      dup2
+        /* "--CODEGEN--":27:37   */
+      lt
+        /* "--CODEGEN--":8:108   */
+      iszero
+      tag_17
+      jumpi
+        /* "--CODEGEN--":99:100   */
+      dup1
+        /* "--CODEGEN--":94:97   */
+      dup3
+        /* "--CODEGEN--":90:101   */
+      add
+        /* "--CODEGEN--":84:102   */
+      mload
+        /* "--CODEGEN--":80:81   */
+      dup2
+        /* "--CODEGEN--":75:78   */
+      dup5
+        /* "--CODEGEN--":71:82   */
+      add
+        /* "--CODEGEN--":64:103   */
+      mstore
+        /* "--CODEGEN--":52:54   */
+      0x20
+        /* "--CODEGEN--":49:50   */
+      dup2
+        /* "--CODEGEN--":45:55   */
+      add
+        /* "--CODEGEN--":40:55   */
+      swap1
+      pop
+        /* "--CODEGEN--":8:108   */
+      jump(tag_15)
+    tag_17:
+        /* "--CODEGEN--":12:26   */
+      pop
+        /* "TestOperations.sol":163:202  mapping(uint32 => Auth[]) public accTab */
+      pop
+      pop
+      pop
+      swap1
+      pop
+      swap1
+      dup2
+      add
+      swap1
+      0x1f
+      and
+      dup1
+      iszero
+      tag_18
+      jumpi
+      dup1
+      dup3
+      sub
+      dup1
+      mload
+      0x01
+      dup4
+      0x20
+      sub
+      0x0100
+      exp
+      sub
+      not
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+    tag_18:
+      pop
+      swap7
+      pop
+      pop
+      pop
+      pop
+      pop
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "TestOperations.sol":209:474  function addFakeItemsInAccTab(uint32 IoTid, uint256 num) public {... */
+    tag_7:
+        /* "TestOperations.sol":288:301  uint256 index */
+      0x00
+        /* "TestOperations.sol":304:305  0 */
+      dup1
+        /* "TestOperations.sol":288:305  uint256 index = 0 */
+      swap1
+      pop
+        /* "TestOperations.sol":283:468  for (uint256 index = 0; index < num; index++) {... */
+    tag_20:
+        /* "TestOperations.sol":315:318  num */
+      dup2
+        /* "TestOperations.sol":307:312  index */
+      dup2
+        /* "TestOperations.sol":307:318  index < num */
+      lt
+        /* "TestOperations.sol":283:468  for (uint256 index = 0; index < num; index++) {... */
+      iszero
+      tag_21
+      jumpi
+        /* "TestOperations.sol":343:349  accTab */
+      0x00
+        /* "TestOperations.sol":343:356  accTab[IoTid] */
+      dup1
+        /* "TestOperations.sol":350:355  IoTid */
+      dup5
+        /* "TestOperations.sol":343:356  accTab[IoTid] */
+      0xffffffff
+      and
+      0xffffffff
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap1
+      dup2
+      mstore
+      0x20
+      add
+      0x00
+      keccak256
+        /* "TestOperations.sol":379:443  Auth({from: "fakefrom", to: "faketo", expire: now, right: true}) */
+      mload(0x40)
+      dup1
+      0x80
+      add
+      0x40
+      mstore
+      dup1
+      mload(0x40)
+      dup1
+      0x40
+      add
+      0x40
+      mstore
+      dup1
+      0x08
+      dup2
+      mstore
+      0x20
+      add
+      0x66616b6566726f6d000000000000000000000000000000000000000000000000
+      dup2
+      mstore
+      pop
+      dup2
+      mstore
+      0x20
+      add
+      mload(0x40)
+      dup1
+      0x40
+      add
+      0x40
+      mstore
+      dup1
+      0x06
+      dup2
+      mstore
+      0x20
+      add
+      0x66616b65746f0000000000000000000000000000000000000000000000000000
+      dup2
+      mstore
+      pop
+      dup2
+      mstore
+      0x20
+      add
+        /* "TestOperations.sol":425:428  now */
+      timestamp
+        /* "TestOperations.sol":379:443  Auth({from: "fakefrom", to: "faketo", expire: now, right: true}) */
+      dup2
+      mstore
+      0x20
+      add
+        /* "TestOperations.sol":437:441  true */
+      0x01
+        /* "TestOperations.sol":379:443  Auth({from: "fakefrom", to: "faketo", expire: now, right: true}) */
+      iszero
+      iszero
+      dup2
+      mstore
+      pop
+        /* "TestOperations.sol":343:457  accTab[IoTid].push(... */
+      swap1
+      dup1
+        /* "--CODEGEN--":39:40   */
+      0x01
+        /* "--CODEGEN--":33:36   */
+      dup2
+        /* "--CODEGEN--":27:37   */
+      sload
+        /* "--CODEGEN--":23:41   */
+      add
+        /* "--CODEGEN--":57:67   */
+      dup1
+        /* "--CODEGEN--":52:55   */
+      dup3
+        /* "--CODEGEN--":45:68   */
+      sstore
+        /* "--CODEGEN--":79:89   */
+      dup1
+        /* "--CODEGEN--":72:89   */
+      swap2
+      pop
+        /* "--CODEGEN--":0:93   */
+      pop
+        /* "TestOperations.sol":343:457  accTab[IoTid].push(... */
+      swap1
+      0x01
+      dup3
+      sub
+      swap1
+      0x00
+      mstore
+      keccak256(0x00, 0x20)
+      swap1
+      0x04
+      mul
+      add
+      0x00
+      swap1
+      swap2
+      swap3
+      swap1
+      swap2
+      swap1
+      swap2
+      pop
+      0x00
+      dup3
+      add
+      mload
+      dup2
+      0x00
+      add
+      swap1
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      tag_24
+      swap3
+      swap2
+      swap1
+      tag_25
+      jump	// in
+    tag_24:
+      pop
+      0x20
+      dup3
+      add
+      mload
+      dup2
+      0x01
+      add
+      swap1
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      swap1
+      tag_26
+      swap3
+      swap2
+      swap1
+      tag_25
+      jump	// in
+    tag_26:
+      pop
+      0x40
+      dup3
+      add
+      mload
+      dup2
+      0x02
+      add
+      sstore
+      0x60
+      dup3
+      add
+      mload
+      dup2
+      0x03
+      add
+      exp(0x0100, 0x00)
+      dup2
+      sload
+      dup2
+      0xff
+      mul
+      not
+      and
+      swap1
+      dup4
+      iszero
+      iszero
+      mul
+      or
+      swap1
+      sstore
+      pop
+      pop
+      pop
+      pop
+        /* "TestOperations.sol":320:327  index++ */
+      dup1
+      dup1
+      0x01
+      add
+      swap2
+      pop
+      pop
+        /* "TestOperations.sol":283:468  for (uint256 index = 0; index < num; index++) {... */
+      jump(tag_20)
+    tag_21:
+      pop
+        /* "TestOperations.sol":209:474  function addFakeItemsInAccTab(uint32 IoTid, uint256 num) public {... */
+      pop
+      pop
+      jump	// out
+        /* "TestOperations.sol":163:202  mapping(uint32 => Auth[]) public accTab */
+    tag_10:
+      mstore(0x20, 0x00)
+      dup2
+      0x00
+      mstore
+      keccak256(0x00, 0x40)
+      dup2
+      dup2
+      sload
+      dup2
+      lt
+      tag_27
+      jumpi
+      invalid
+    tag_27:
+      swap1
+      0x00
+      mstore
+      keccak256(0x00, 0x20)
+      swap1
+      0x04
+      mul
+      add
+      0x00
+      swap2
+      pop
+      swap2
+      pop
+      pop
+      dup1
+      0x00
+      add
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      dup1
+      0x1f
+      add
+      0x20
+      dup1
+      swap2
+      div
+      mul
+      0x20
+      add
+      mload(0x40)
+      swap1
+      dup2
+      add
+      0x40
+      mstore
+      dup1
+      swap3
+      swap2
+      swap1
+      dup2
+      dup2
+      mstore
+      0x20
+      add
+      dup3
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      dup1
+      iszero
+      tag_29
+      jumpi
+      dup1
+      0x1f
+      lt
+      tag_30
+      jumpi
+      0x0100
+      dup1
+      dup4
+      sload
+      div
+      mul
+      dup4
+      mstore
+      swap2
+      0x20
+      add
+      swap2
+      jump(tag_29)
+    tag_30:
+      dup3
+      add
+      swap2
+      swap1
+      0x00
+      mstore
+      keccak256(0x00, 0x20)
+      swap1
+    tag_31:
+      dup2
+      sload
+      dup2
+      mstore
+      swap1
+      0x01
+      add
+      swap1
+      0x20
+      add
+      dup1
+      dup4
+      gt
+      tag_31
+      jumpi
+      dup3
+      swap1
+      sub
+      0x1f
+      and
+      dup3
+      add
+      swap2
+    tag_29:
+      pop
+      pop
+      pop
+      pop
+      pop
+      swap1
+      dup1
+      0x01
+      add
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      dup1
+      0x1f
+      add
+      0x20
+      dup1
+      swap2
+      div
+      mul
+      0x20
+      add
+      mload(0x40)
+      swap1
+      dup2
+      add
+      0x40
+      mstore
+      dup1
+      swap3
+      swap2
+      swap1
+      dup2
+      dup2
+      mstore
+      0x20
+      add
+      dup3
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      dup1
+      iszero
+      tag_32
+      jumpi
+      dup1
+      0x1f
+      lt
+      tag_33
+      jumpi
+      0x0100
+      dup1
+      dup4
+      sload
+      div
+      mul
+      dup4
+      mstore
+      swap2
+      0x20
+      add
+      swap2
+      jump(tag_32)
+    tag_33:
+      dup3
+      add
+      swap2
+      swap1
+      0x00
+      mstore
+      keccak256(0x00, 0x20)
+      swap1
+    tag_34:
+      dup2
+      sload
+      dup2
+      mstore
+      swap1
+      0x01
+      add
+      swap1
+      0x20
+      add
+      dup1
+      dup4
+      gt
+      tag_34
+      jumpi
+      dup3
+      swap1
+      sub
+      0x1f
+      and
+      dup3
+      add
+      swap2
+    tag_32:
+      pop
+      pop
+      pop
+      pop
+      pop
+      swap1
+      dup1
+      0x02
+      add
+      sload
+      swap1
+      dup1
+      0x03
+      add
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xff
+      and
+      swap1
+      pop
+      dup5
+      jump	// out
+        /* "TestOperations.sol":26:476  contract TestOperations {... */
+    tag_25:
+      dup3
+      dup1
+      sload
+      0x01
+      dup2
+      0x01
+      and
+      iszero
+      0x0100
+      mul
+      sub
+      and
+      0x02
+      swap1
+      div
+      swap1
+      0x00
+      mstore
+      keccak256(0x00, 0x20)
+      swap1
+      0x1f
+      add
+      0x20
+      swap1
+      div
+      dup2
+      add
+      swap3
+      dup3
+      0x1f
+      lt
+      tag_36
+      jumpi
+      dup1
+      mload
+      not(0xff)
+      and
+      dup4
+      dup1
+      add
+      or
+      dup6
+      sstore
+      jump(tag_35)
+    tag_36:
+      dup3
+      dup1
+      add
+      0x01
+      add
+      dup6
+      sstore
+      dup3
+      iszero
+      tag_35
+      jumpi
+      swap2
+      dup3
+      add
+    tag_37:
+      dup3
+      dup2
+      gt
+      iszero
+      tag_38
+      jumpi
+      dup3
+      mload
+      dup3
+      sstore
+      swap2
+      0x20
+      add
+      swap2
+      swap1
+      0x01
+      add
+      swap1
+      jump(tag_37)
+    tag_38:
+    tag_35:
+      pop
+      swap1
+      pop
+      tag_39
+      swap2
+      swap1
+      tag_40
+      jump	// in
+    tag_39:
+      pop
+      swap1
+      jump	// out
+    tag_40:
+      tag_41
+      swap2
+      swap1
+    tag_42:
+      dup1
+      dup3
+      gt
+      iszero
+      tag_43
+      jumpi
+      0x00
+      dup2
+      0x00
+      swap1
+      sstore
+      pop
+      0x01
+      add
+      jump(tag_42)
+    tag_43:
+      pop
+      swap1
+      jump
+    tag_41:
+      swap1
+      jump	// out
+
+    auxdata: 0xa265627a7a723158206bb256a9b2f72084a2401653d529b802b679ebef538352e9c6d88ff52e48639464736f6c63430005110032
+}

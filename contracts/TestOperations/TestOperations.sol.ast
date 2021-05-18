@@ -1,0 +1,121 @@
+PragmaDirective
+   Source: "pragma solidity ^0.5.17;"
+ContractDefinition "TestOperations"
+   Source: "contract TestOperations {\n    struct Auth {\n        bytes from;\n        bytes to;\n        uint256 expire;\n        bool right;\n    }\n\n    mapping(uint32 => Auth[]) public accTab;\n\n    function addFakeItemsInAccTab(uint32 IoTid, uint256 num) public {\n        for (uint256 index = 0; index < num; index++) {\n            accTab[IoTid].push(\n                Auth({from: \"fakefrom\", to: \"faketo\", expire: now, right: true})\n            );\n        }\n    }\n}"
+  StructDefinition "Auth"
+     Source: "struct Auth {\n        bytes from;\n        bytes to;\n        uint256 expire;\n        bool right;\n    }"
+    VariableDeclaration "from"
+       Type: bytes storage pointer
+       Source: "bytes from"
+      ElementaryTypeName bytes
+         Source: "bytes"
+    VariableDeclaration "to"
+       Type: bytes storage pointer
+       Source: "bytes to"
+      ElementaryTypeName bytes
+         Source: "bytes"
+    VariableDeclaration "expire"
+       Type: uint256
+       Source: "uint256 expire"
+      ElementaryTypeName uint256
+         Source: "uint256"
+    VariableDeclaration "right"
+       Type: bool
+       Source: "bool right"
+      ElementaryTypeName bool
+         Source: "bool"
+  VariableDeclaration "accTab"
+     Type: mapping(uint32 => struct TestOperations.Auth storage ref[] storage ref)
+     Source: "mapping(uint32 => Auth[]) public accTab"
+    Mapping
+       Source: "mapping(uint32 => Auth[])"
+      ElementaryTypeName uint32
+         Source: "uint32"
+      ArrayTypeName
+         Source: "Auth[]"
+        UserDefinedTypeName "Auth"
+           Source: "Auth"
+  FunctionDefinition "addFakeItemsInAccTab" - public
+     Source: "function addFakeItemsInAccTab(uint32 IoTid, uint256 num) public {\n        for (uint256 index = 0; index < num; index++) {\n            accTab[IoTid].push(\n                Auth({from: \"fakefrom\", to: \"faketo\", expire: now, right: true})\n            );\n        }\n    }"
+    ParameterList
+       Source: "(uint32 IoTid, uint256 num)"
+      VariableDeclaration "IoTid"
+         Type: uint32
+         Source: "uint32 IoTid"
+        ElementaryTypeName uint32
+           Source: "uint32"
+      VariableDeclaration "num"
+         Type: uint256
+         Source: "uint256 num"
+        ElementaryTypeName uint256
+           Source: "uint256"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n        for (uint256 index = 0; index < num; index++) {\n            accTab[IoTid].push(\n                Auth({from: \"fakefrom\", to: \"faketo\", expire: now, right: true})\n            );\n        }\n    }"
+      ForStatement
+         Source: "for (uint256 index = 0; index < num; index++) {\n            accTab[IoTid].push(\n                Auth({from: \"fakefrom\", to: \"faketo\", expire: now, right: true})\n            );\n        }"
+        VariableDeclarationStatement
+           Source: "uint256 index = 0"
+          VariableDeclaration "index"
+             Type: uint256
+             Source: "uint256 index"
+            ElementaryTypeName uint256
+               Source: "uint256"
+          Literal, token: [no token] value: 0
+             Type: int_const 0
+             Source: "0"
+        BinaryOperation using operator <
+           Type: bool
+           Source: "index < num"
+          Identifier index
+             Type: uint256
+             Source: "index"
+          Identifier num
+             Type: uint256
+             Source: "num"
+        ExpressionStatement
+           Source: "index++"
+          UnaryOperation (postfix) ++
+             Type: uint256
+             Source: "index++"
+            Identifier index
+               Type: uint256
+               Source: "index"
+        Block
+           Source: "{\n            accTab[IoTid].push(\n                Auth({from: \"fakefrom\", to: \"faketo\", expire: now, right: true})\n            );\n        }"
+          ExpressionStatement
+             Source: "accTab[IoTid].push(\n                Auth({from: \"fakefrom\", to: \"faketo\", expire: now, right: true})\n            )"
+            FunctionCall
+               Type: uint256
+               Source: "accTab[IoTid].push(\n                Auth({from: \"fakefrom\", to: \"faketo\", expire: now, right: true})\n            )"
+              MemberAccess to member push
+                 Type: function (struct TestOperations.Auth storage ref) returns (uint256)
+                 Source: "accTab[IoTid].push"
+                IndexAccess
+                   Type: struct TestOperations.Auth storage ref[] storage ref
+                   Source: "accTab[IoTid]"
+                  Identifier accTab
+                     Type: mapping(uint32 => struct TestOperations.Auth storage ref[] storage ref)
+                     Source: "accTab"
+                  Identifier IoTid
+                     Type: uint32
+                     Source: "IoTid"
+              FunctionCall
+                 Type: struct TestOperations.Auth memory
+                 Source: "Auth({from: \"fakefrom\", to: \"faketo\", expire: now, right: true})"
+                Identifier Auth
+                   Type: type(struct TestOperations.Auth storage pointer)
+                   Source: "Auth"
+                Literal, token: [no token] value: fakefrom
+                   Type: literal_string "fakefrom"
+                   Source: "\"fakefrom\""
+                Literal, token: [no token] value: faketo
+                   Type: literal_string "faketo"
+                   Source: "\"faketo\""
+                Identifier now
+                   Type: uint256
+                   Source: "now"
+                Literal, token: true value: true
+                   Type: bool
+                   Source: "true"
