@@ -25,16 +25,14 @@ contract('Operations', (accounts) => {
         user  = await utils.createAccount(web3, utils.prikeys[testData.userIndex]);
         user1 = await utils.createAccount(web3, utils.prikeys[testData.userIndex + 2]);
     });
-
-
-    const experiments = [1];
-    const experiment_results = [];
     var len=0
-    for (var i=0;i<100;i++){
-        for (const loop_num of experiments) {
-            it(`should log ${title}`, async () => {
-                const contractInstance = await Operations.deployed();
+    it(`should log ${title}`, async () => {
+        const contractInstance = await Operations.deployed();
+        const experiments = [1];
+        const experiment_results = [];
         
+        for (var i=0;i<100;i++){
+            for (const loop_num of experiments) {
                 // open access of device to user0
                 const user0 = user;
                 // expire time is 1 hour later
@@ -45,12 +43,14 @@ contract('Operations', (accounts) => {
                 len=await contractInstance.getAccTabLength.call(uint32_id,{
                     from: accounts[1]
                 });
-            });
-        }
+             
+            }
 
-    }
-
+        }   
+        
+    });
     after(`experiment results of [${scriptName}]`, async () => {
         console.log("accTab length",len);
     });
+    
 });
