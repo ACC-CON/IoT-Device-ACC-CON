@@ -195,36 +195,6 @@ contract Operations {
         return VerifyProof([x, y], message, s, e);
     }
 
-    function LoopToDelegate(
-        bytes memory _type,
-        bytes memory Kfrom,
-        uint256 message,
-        uint32 IoTid,
-        bytes memory Kto,
-        bytes memory proofs_to,
-        uint256 expire,
-        bool right,
-        uint256 num
-    ) 
-        public
-        returns (bool)
-    {
-        for (uint256 index = 0; index < num; index++) {
-            if(index + 1 == num) {
-                return Delegate(
-                    _type,
-                    Kfrom,
-                    message,
-                    IoTid,
-                    Kto,
-                    proofs_to,
-                    expire,
-                    right
-                );
-            }
-        }
-    }
-
     // invoked by an IoT owner or an IoT user
     function Delegate(
         bytes memory _type,
@@ -277,32 +247,6 @@ contract Operations {
         );
     }
 
-    function addFakeItemsInAccTab(
-        uint32 IoTid,
-        uint256 num
-    ) public {
-        for (uint256 index = 0; index < num; index++) {
-            accTab[IoTid].push(
-                Auth({from: "fakefrom", to: "faketo", expire: now, right: true})
-            );
-        }
-    }
-
-    function LoopToGenerateSessionID(
-        bytes memory Kuser,
-        uint32 IoTid,
-        uint256 num
-    ) 
-        public
-        returns (bytes memory sessionId)
-    {
-        for (uint256 index = 0; index < num; index++) {
-            if(index + 1 == num) {
-                sessionId = GenerateSessionID(Kuser, IoTid);
-            }
-        }
-    }
-
     // invoked by an IoT user
     function GenerateSessionID(bytes memory Kuser, uint32 IoTid)
         public
@@ -326,19 +270,6 @@ contract Operations {
         }
     }
 
-    function LoopToRevoke(
-        bytes memory Kowner,
-        bytes memory Kto,
-        uint32 IoTid,
-        uint256 num
-    ) public {
-        for (uint256 index = 0; index < num; index++) {
-            if(index + 1 == num) {
-                Revoke(Kowner, Kto, IoTid);
-            }
-        }
-    }
-
     // invoked by an IoT owner
     function Revoke(
         bytes memory Kowner,
@@ -350,15 +281,29 @@ contract Operations {
             equal(IoTDevices[IoTid].owner, Kowner),
             string(abi.encodePacked(Kowner, " is not the owner of ", IoTid))
         );
+        Remove(Kto, IoTid);
+    }
+
+    function Remove (
+        bytes memory Kto,
+        uint32 IoTid
+    ) public {
         for (uint256 index = 0; index < accTab[IoTid].length; index++) {
             if (equal(accTab[IoTid][index].to, Kto)) {
-                delete accTab[IoTid][index];
+                // remove an element at a certain index in accTab[IoTid]
+                for (uint i = index; i < accTab[IoTid].length - 1; i++){
+                    accTab[IoTid][i] = accTab[IoTid][i+1];
+                }
+                accTab[IoTid].length--;
                 break;
             }
         }
     }
 
-    function getAccTabLength(uint32 IoTid) public returns (uint256){
+    function getAccTabLength(uint32 IoTid) 
+        public 
+        view 
+    returns (uint256) {
         return accTab[IoTid].length;
     }
 }
