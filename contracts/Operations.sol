@@ -47,15 +47,15 @@ contract Operations {
     mapping(address => mapping(uint32 => uint256)) public deposits;
 
     struct Auth {
-        bytes from;
-        bytes to;
+        bytes from;        
         uint256 expire;
         bool right;
     }
     // mapping(Iotid => Device)
     // maintaining all the authorized list for all IoT devices
-    mapping(uint32 => Auth[]) public accTab;
-
+    mapping(uint32 => mapping(address => Auth)) public accTab;
+    uint32 public accTabLength=0;
+    
     // invoked by an IoT owner
     function Register(
         bytes memory Kowner,
@@ -207,7 +207,8 @@ contract Operations {
         bool right
     ) public returns (bool) {
         require(checkK(Kto, message, proofs_to));
-
+        
+        
         if (equal(_type, "owner")) {
             require(
                 equal(IoTDevices[IoTid].owner, Kfrom),
@@ -216,20 +217,11 @@ contract Operations {
         }
 
         if (equal(_type, "user")) {
-            bool has = false;
-            for (uint256 index = 0; index < accTab[IoTid].length; index++) {
-                if (equal(accTab[IoTid][index].to, Kfrom)) {
-                    has = true;
-                    require(accTab[IoTid][index].right == true, "right is not true");
-                    break;
-                }
-            }
-            require(has);
+            address from = address(uint160(mapKey(Kfrom)));
+            require(accTab[IoTid][from].right, "right is not true");
         }
-
-        accTab[IoTid].push(
-            Auth({from: Kfrom, to: Kto, expire: expire, right: right})
-        );
+        address to = address(uint160(mapKey(Kto)));
+        accTab[IoTid][to]= Auth({from: Kfrom, expire: expire, right: right});
         return true;
     }
 
@@ -242,9 +234,9 @@ contract Operations {
         uint256 expire,
         bool right
     ) public {
-        accTab[IoTid].push(
-            Auth({from: Kfrom, to: Kto, expire: expire, right: right})
-        );
+        address to = address(uint160(mapKey(Kto)));
+        accTab[IoTid][to]=Auth({from: Kfrom, expire: expire, right: right});
+        accTabLength+=1;
     }
 
     // invoked by an IoT user
@@ -252,22 +244,17 @@ contract Operations {
         public
         returns (bytes memory sessionId)
     {
-        for (uint256 index = 0; index < accTab[IoTid].length; index++) {
-            if (equal(accTab[IoTid][index].to, Kuser)) {
-                require(
-                    now < accTab[IoTid][index].expire,
-                    "already expired"
-                );
-                sessionId = abi.encodePacked(
-                    Kuser,
-                    IoTid,
-                    accTab[IoTid][index].expire
-                );
-                
-                emit sessionInfo(sessionId, IoTid);
-                break;
-            }
-        }
+        address user = address(uint160(mapKey(Kuser)));
+        // if(accTab[IoTid][user]){
+            require(now < accTab[IoTid][user].expire, "already expired");
+            sessionId = abi.encodePacked(
+                Kuser,
+                IoTid,
+                accTab[IoTid][user].expire
+            );            
+            emit sessionInfo(sessionId, IoTid);            
+        // }
+        
     }
 
     // invoked by an IoT owner
@@ -288,22 +275,17 @@ contract Operations {
         bytes memory Kto,
         uint32 IoTid
     ) public {
-        for (uint256 index = 0; index < accTab[IoTid].length; index++) {
-            if (equal(accTab[IoTid][index].to, Kto)) {
-                // remove an element at a certain index in accTab[IoTid]
-                for (uint i = index; i < accTab[IoTid].length - 1; i++){
-                    accTab[IoTid][i] = accTab[IoTid][i+1];
-                }
-                accTab[IoTid].length--;
-                break;
-            }
-        }
+        address to = address(uint160(mapKey(Kto)));
+        // if(accTab[IoTid][to]){
+            delete accTab[IoTid][to];
+            accTabLength=accTabLength-1;
+        // }
     }
 
     function getAccTabLength(uint32 IoTid) 
         public 
         view 
-    returns (uint256) {
-        return accTab[IoTid].length;
+    returns (uint32) {
+        return accTabLength;
     }
 }
