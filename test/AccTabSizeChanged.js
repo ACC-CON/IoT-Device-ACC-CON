@@ -15,9 +15,11 @@ contract('Operations', (accounts) => {
 
     var owner;
     var user;
+    var guy;
     before(`init accounts in current network. [${scriptName}]`, async () => {
         owner = await utils.createAccount(web3, utils.prikeys[testData.ownerIndex]);
         user = await utils.createAccount(web3, utils.prikeys[testData.userIndex]);
+        guy = await utils.createAccount(web3, utils.prikeys[testData.userIndex + 2]);
     });
 
     const addFakedatas = async (contractInstance, num, fakedata) => {
@@ -35,7 +37,7 @@ contract('Operations', (accounts) => {
         }
     }
     
-    const experiments = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200];
+    const experiments = [100];
     const experiment_results = [];
 
     var accTabLength = 0;
@@ -52,8 +54,8 @@ contract('Operations', (accounts) => {
             // add fake data
             await addFakedatas(contractInstance, newFakeNum, {
                 id: uint32_id,
-                from: utils.str2bytes("fakefrom"),
-                to: utils.str2bytes("faketo"),
+                from: guy.pubkey,
+                to: guy.pubkey,
                 expire: uint256_expire,
                 right,
             });
