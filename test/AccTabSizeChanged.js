@@ -7,7 +7,6 @@ const testData = utils.testData;
 const { uint32_id, string_name, uint32_price } = testData.device;
 
 const bytes_type_user = utils.str2bytes("user");
-const bytes_type_owner= utils.str2bytes("owner");
 const uint256_msg = testData.uint256_msg;
 const right = true;
 
@@ -35,37 +34,6 @@ contract('Operations', (accounts) => {
             );
         }
     }
-
-    const addFakedatas_ = async (contractInstance, num, fakedata) => {
-        const batchSize = 60;
-
-        while (num > 0) {
-
-            var tasks = [];
-            var taskNum = num > batchSize ? batchSize : num;
-
-            for (var i = 0; i < taskNum; i++) {
-                tasks.push(contractInstance.addAccTab(
-                    fakedata.id,
-                    fakedata.from,
-                    fakedata.to,
-                    fakedata.expire,
-                    fakedata.right,
-                    {
-                        from: accounts[1]
-                    }
-                ));
-            }
-
-            await Promise.all(tasks).then((results) => {
-                console.log(results.length);
-            });
-
-            num -= batchSize;
-            console.log(`add ${taskNum} fake data`)
-        }
-    };
-
     
     const experiments = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200];
     const experiment_results = [];
