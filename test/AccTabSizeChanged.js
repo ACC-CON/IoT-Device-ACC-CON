@@ -19,16 +19,13 @@ contract('Operations', (accounts) => {
     });
 
     const addFakedatas = async (contractInstance, num, seed, fakedata) => {
-        console.log("seed", seed)
+
         for (var i = 0; i < num; i++) {
-            // 创建一个符合规则的 account
-            // 由于用了 key-value 结构存储，所以新插入的不与之前已有的 key 重复
+            
+            // avoid insert duplicated key
             let acc = web3.eth.accounts.create(`f${seed + i}a${seed + i + 1}k${seed + i + 2}e`);
-            // 获取它的公钥
             let pubkey = utils.pri2pubhex(acc.privateKey)
-            // 插入模拟数据进去
-            // TODO: pubkey 可能不是 64 bytes，这时 Operations.sol 中的第 32 行会报错，不过不影响其它测试用例继续进行
-            // 至于为什么不是 64 bytes 还在排查中
+            
             await contractInstance.addAccTab(
                 fakedata.id,
                 pubkey,
