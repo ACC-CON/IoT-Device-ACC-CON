@@ -7,13 +7,10 @@ const testData = utils.testData;
 const { uint32_id, string_name, uint32_price } = testData.device;
 
 const bytes_type_user = utils.str2bytes("user");
-const bytes_type_owner= utils.str2bytes("owner");
 const uint256_msg = testData.uint256_msg;
 const right = true;
 
 contract('Operations', (accounts) => {
-    let title = `gas used by [${scriptName}]`
-
     var owner;
     var user;
     before(`init accounts in current network. [${scriptName}]`, async () => {
@@ -21,12 +18,21 @@ contract('Operations', (accounts) => {
         user = await utils.createAccount(web3, utils.prikeys[testData.userIndex]);
     });
 
-    const addFakedatas = async (contractInstance, num, fakedata) => {
+    const addFakedatas = async (contractInstance, num, seed, fakedata) => {
+        console.log("seed", seed)
         for (var i = 0; i < num; i++) {
+            // 创建一个符合规则的 account
+            // 由于用了 key-value 结构存储，所以新插入的不与之前已有的 key 重复
+            let acc = web3.eth.accounts.create(`f${seed + i}a${seed + i + 1}k${seed + i + 2}e`);
+            // 获取它的公钥
+            let pubkey = utils.pri2pubhex(acc.privateKey)
+            // 插入模拟数据进去
+            // TODO: pubkey 可能不是 64 bytes，这时 Operations.sol 中的第 32 行会报错，不过不影响其它测试用例继续进行
+            // 至于为什么不是 64 bytes 还在排查中
             await contractInstance.addAccTab(
                 fakedata.id,
-                fakedata.from,
-                fakedata.to,
+                pubkey,
+                pubkey,
                 fakedata.expire,
                 fakedata.right,
                 {
@@ -36,37 +42,6 @@ contract('Operations', (accounts) => {
         }
     }
 
-    const addFakedatas_ = async (contractInstance, num, fakedata) => {
-        const batchSize = 60;
-
-        while (num > 0) {
-
-            var tasks = [];
-            var taskNum = num > batchSize ? batchSize : num;
-
-            for (var i = 0; i < taskNum; i++) {
-                tasks.push(contractInstance.addAccTab(
-                    fakedata.id,
-                    fakedata.from,
-                    fakedata.to,
-                    fakedata.expire,
-                    fakedata.right,
-                    {
-                        from: accounts[1]
-                    }
-                ));
-            }
-
-            await Promise.all(tasks).then((results) => {
-                console.log(results.length);
-            });
-
-            num -= batchSize;
-            console.log(`add ${taskNum} fake data`)
-        }
-    };
-
-    
     const experiments = [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200];
     const experiment_results = [];
 
@@ -75,19 +50,17 @@ contract('Operations', (accounts) => {
     for (const newFakeNum of experiments) {
 
         // create testcases for every size of array
-        it(`should get ${title}, length of accTab[IoTid] is ${accTabLength}`, async () => {
+        it(`${scriptName}`, async () => {
             const contractInstance = await Operations.deployed();
 
             // expire time is 1 hour later
             const uint256_expire = Math.round(Date.now() / 1000) + 3600;
 
             // add fake data
-            await addFakedatas(contractInstance, newFakeNum, {
+            await addFakedatas(contractInstance, newFakeNum, accTabLength, {
                 id: uint32_id,
-                from: utils.str2bytes("fakefrom"),
-                to: utils.str2bytes("faketo"),
                 expire: uint256_expire,
-                right,
+                right
             });
 
             /*
@@ -103,8 +76,8 @@ contract('Operations', (accounts) => {
             });
             const user_proof = "0x" + userProofResp.out_s.toString(16) + userProofResp.out_e.toString(16);
             // delegate from owner to user
-            // check(to == owner.pubkey)
-            // this will add (to = user.pubkey)
+            // get[owner.pubkey]
+            // this will add [user.pubkey]
             const response_Delegate = await contractInstance.Delegate(
                 bytes_type_user,
                 owner.pubkey,                  // delegate_from
@@ -116,15 +89,11 @@ contract('Operations', (accounts) => {
                 right
             );
 
-            // remove (to == owner.pubkey) from AccTab
-            await contractInstance.Remove(owner.pubkey, uint32_id);
-
-
             /*
              GenerateSessionID
              */
             // user generate his session id
-            // check(to == user.pubkey)
+            // search[user.pubkey]
             const response_GenerateSessionID = await contractInstance.GenerateSessionID(user.pubkey, uint32_id);
 
             /*
@@ -135,16 +104,15 @@ contract('Operations', (accounts) => {
 
             // owner revoke the user's right to use the device
             // check(to == user.pubkey)
-            // del(to == user.pubkey)
+            // del[user.pubkey]
             const response_Revoke = await contractInstance.Revoke(owner.pubkey, user.pubkey, uint32_id);
 
             /*
              gather result
              */
-            var accTabLengthBN = await contractInstance.getAccTabLength.call(uint32_id);
-            accTabLength = accTabLengthBN.toNumber();
+            accTabLength = (await contractInstance.getAccTabLength.call()).toNumber();
             experiment_results.push({
-                searchTimes: accTabLength,
+                accTabSize: accTabLength,
                 GenerateSessionID: response_GenerateSessionID.receipt.gasUsed,
                 Delegate: response_Delegate.receipt.gasUsed,
                 Revoke: response_Revoke.receipt.gasUsed
