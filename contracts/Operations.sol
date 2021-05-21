@@ -54,7 +54,7 @@ contract Operations {
     // mapping(Iotid => Device)
     // maintaining all the authorized list for all IoT devices
     mapping(uint32 => mapping(address => Auth)) public accTab;
-    uint32 public accTabLength=0;
+    uint32 public accTabLength = 0;
     
     // invoked by an IoT owner
     function Register(
@@ -208,18 +208,17 @@ contract Operations {
     ) public returns (bool) {
         require(checkK(Kto, message, proofs_to));
         
-        
         if (equal(_type, "owner")) {
             require(
                 equal(IoTDevices[IoTid].owner, Kfrom),
                 "pubkey_from is not the owner of device"
             );
         }
-
         if (equal(_type, "user")) {
             address from = address(uint160(mapKey(Kfrom)));
             require(accTab[IoTid][from].right, "right is not true");
         }
+        
         address to = address(uint160(mapKey(Kto)));
         accTab[IoTid][to]= Auth({from: Kfrom, expire: expire, right: right});
         return true;
@@ -236,7 +235,7 @@ contract Operations {
     ) public {
         address to = address(uint160(mapKey(Kto)));
         accTab[IoTid][to]=Auth({from: Kfrom, expire: expire, right: right});
-        accTabLength+=1;
+        accTabLength += 1;
     }
 
     // invoked by an IoT user
@@ -245,16 +244,13 @@ contract Operations {
         returns (bytes memory sessionId)
     {
         address user = address(uint160(mapKey(Kuser)));
-        // if(accTab[IoTid][user]){
-            require(now < accTab[IoTid][user].expire, "already expired");
-            sessionId = abi.encodePacked(
-                Kuser,
-                IoTid,
-                accTab[IoTid][user].expire
-            );            
-            emit sessionInfo(sessionId, IoTid);            
-        // }
-        
+        require(now < accTab[IoTid][user].expire, "already expired");
+        sessionId = abi.encodePacked(
+            Kuser,
+            IoTid,
+            accTab[IoTid][user].expire
+        );
+        emit sessionInfo(sessionId, IoTid);
     }
 
     // invoked by an IoT owner
@@ -276,13 +272,11 @@ contract Operations {
         uint32 IoTid
     ) public {
         address to = address(uint160(mapKey(Kto)));
-        // if(accTab[IoTid][to]){
-            delete accTab[IoTid][to];
-            accTabLength=accTabLength-1;
-        // }
+        delete accTab[IoTid][to];
+        accTabLength -= 1;
     }
 
-    function getAccTabLength(uint32 IoTid) 
+    function getAccTabLength() 
         public 
         view 
     returns (uint32) {

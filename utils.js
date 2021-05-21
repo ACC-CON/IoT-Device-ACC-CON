@@ -58,10 +58,10 @@ const pri2pub = function(prikey) {
     var key = curve.keyFromPrivate(prikey)
 
     var pubPoint = key.getPublic();
-    var x = pubPoint.getX();
-    var y = pubPoint.getY();
+    var x = pubPoint.getX().toString('hex').padStart(64, '0');
+    var y = pubPoint.getY().toString('hex').padStart(64, '0');
 
-    return "0x" + x.toString('hex') + y.toString('hex');
+    return "0x" + x + y;
 };
 
 /**
