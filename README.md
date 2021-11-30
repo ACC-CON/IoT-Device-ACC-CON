@@ -44,8 +44,8 @@ Gas consumption of each funtionality
 | Deposit                    |  44016   |
 | Withdraw                   |  21523   |
 | Transfer                   |  67759   |
-| Delegate (type is "owner") |  1581660 |
-| Delegate (type is "user")  |  1608802 |
+| Delegate (type is "owner") |  179167 |
+| Delegate (type is "user")  |  175437 |
 | GenerateSessionID          |  24884   |
 | Revoke                     |  41054   |
 
