@@ -98,19 +98,20 @@ $ truffle test test/Delegate.js
 
 实验一：本地 `test` 网络中测得**各个操作正常执行功能**的 gas 消耗如下（仅供参考）
 
-| 函数名 | Gas 消耗 |
-| ----- | -------- |
-| Register           |  128551  |
-| Deposit            |  44016   |
-| Withdraw           |  21523   |
-| Transfer           |  67759   |
-| Delegate (type is "owner")          |  1581660|
-| Delegate (type is "user")           |  1608802|
-| GenerateSessionID（accTab is null）  |  24884 |
-| Revoke             |  41054   |
+| method                     | gas      |
+| -------------------------- | -------- |
+| Register                   |  128551  |
+| Deposit                    |  44016   |
+| Withdraw                   |  21523   |
+| Transfer                   |  67759   |
+| Delegate (type is "owner") |  1581660 |
+| Delegate (type is "user")  |  1608802 |
+| GenerateSessionID          |  24884   |
+| Revoke                     |  41054   |
 
 实验二：随着 IoTDevices 或 accTab 存储内容的增长，Delegate，generateSessionId，Revoke 三个函数在搜索遍历时的 gas 消耗
 
+**accTab is array**
 
 | accTabLength        | GenerateSessionID | Delegate | Revoke  |
 | ------------------- | ----------------- | -------- | ------- |
@@ -126,3 +127,24 @@ $ truffle test test/Delegate.js
 |1200                 |     3543047       | 5118817  | 3473248 |
 |1400                 |     4132296       | 5708151  | 4062509 |
 |1600                 |     4723041       | 6299001  | 4653244 |
+
+**accTab is mapping**
+
+| accTabLength        | GenerateSessionID | Delegate | Revoke |
+| ------------------- | ----------------- | -------- | ------ |
+|10                   |     30766         | 1539894  | 32620  | 
+|100                  |     30766         | 1539894  | 32620  | 
+|200                  |     30766         | 1539894  | 32620  | 
+|300                  |     30766         | 1539894  | 32620  | 
+|400                  |     30766         | 1539894  | 32620  |
+|500                  |     30766         | 1539894  | 32620  |
+|600                  |     30766         | 1539894  | 32620  |
+|700                  |     30766         | 1539894  | 32620  |
+|800                  |     30766         | 1539894  | 32620  |
+|900                  |     30766         | 1539894  | 32620  |
+|1000                 |      30766        | 1539894  | 32620  |
+|1200                 |      30766        | 1539894  | 32620  |
+|1400                 |      30766        | 1539894  | 32620  |
+|1600                 |      30766        | 1539894  | 32620  |
+|1800                 |      30766        | 1539894  | 32620  |
+|2000                 |      30766        | 1539894  | 32620  |
