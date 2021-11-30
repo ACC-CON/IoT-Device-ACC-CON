@@ -195,6 +195,7 @@ contract Operations {
         return VerifyProof([x, y], message, s, e);
     }
 
+
     // invoked by an IoT owner or an IoT user
     function Delegate(
         bytes memory _type,
@@ -206,7 +207,7 @@ contract Operations {
         uint256 expire,
         bool right
     ) public returns (bool) {
-        require(checkK(Kto, message, proofs_to));
+        // require(checkK(Kto, message, proofs_to));
         
         if (equal(_type, "owner")) {
             require(
