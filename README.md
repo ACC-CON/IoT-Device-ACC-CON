@@ -40,14 +40,15 @@ Gas consumption of each funtionality
 
 | method                     | gas      |
 | -------------------------- | -------- |
-| Register                   |  128551  |
-| Deposit                    |  44016   |
+| Verify                     |  30820   |
+| Register                   |  128539  |
+| Deposit                    |  44038   |
 | Withdraw                   |  21523   |
-| Transfer                   |  67759   |
-| Delegate (type is "owner") |  179167 |
-| Delegate (type is "user")  |  175437 |
-| GenerateSessionID          |  24884   |
-| Revoke                     |  41054   |
+| Transfer                   |  42791   |
+| Delegate (type is "owner") |  174835 |
+| Delegate (type is "user")  |  175004 |
+| GenerateSessionID          |  30766   |
+| Revoke                     |  32620   |
 
 
 Gas consumption when increasing the number of IoT devices (i.e., the length of accTab or IoTDevices)
